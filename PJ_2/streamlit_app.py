@@ -6,7 +6,7 @@ st.set_page_config(layout="wide", page_title="Re-Entering Accounting Guide")
 
 # --- Page Definitions (no icons) ---
 page_configs = [
-    {"module": "0_🎯_Resume_Suggestions.py", "title": "Resume Suggestions"},
+    {"module": "0_📃_Resume_Suggestions.py", "title": "Resume Suggestions"},
     {"module": "1_🎯_Career_Goal_Evaluation.py", "title": "Career Goal Evaluation"},
     {"module": "2_📚_Refresh_Skills_Resources.py", "title": "Refresh Skills & Knowledge"},
     {"module": "5_✨_Career_Paths.py", "title": "Visual Career Paths"},
