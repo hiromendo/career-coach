@@ -16,7 +16,9 @@ section_content_map = [
      * **CPA Path:** Opens doors to higher-level roles, especially in public accounting and some corporate positions.
      * **Non-CPA Path:** Roles like bookkeeper, staff accountant, accounting manager can be rewarding but might have different advancement paths.
      * **Importance:** Knowing your target path helps prioritize licensing, education, and job search efforts.
-     """, None),
+     """,
+         ("pages/12_🎓_Oregon_CPA_Reqs_Quiz.py", "**➡️ Review Requirements & Take Quiz**", "🎓")
+    ),
 
     ("Refresh Your Accounting Knowledge and Skills",
      """
