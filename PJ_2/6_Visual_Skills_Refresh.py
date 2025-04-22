@@ -4,7 +4,7 @@ import streamlit as st
 #st.set_page_config(page_title="Visual Skills Refresh", layout="wide")
 
 # --- Page Title and Introduction ---
-st.title("💡 Visual Guide: Refreshing Your Skills")
+st.title("💡 Refreshing Your Skills")
 st.markdown("""
 Stay current! The accounting world changes fast. Use these resources to update your knowledge
 in key areas like standards, tech, and continuous learning. Click the buttons to explore resources.

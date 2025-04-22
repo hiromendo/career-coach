@@ -6,13 +6,12 @@ st.set_page_config(layout="wide", page_title="Re-Entering Accounting Guide")
 
 # --- Page Definitions (no icons) ---
 page_configs = [
-    {"module": "0_📃_Resume_Suggestions.py", "title": "Resume Suggestions"},
-    {"module": "1_🎯_Career_Goal_Evaluation.py", "title": "Career Goal Evaluation"},
-    {"module": "2_📚_Refresh_Skills_Resources.py", "title": "Refresh Skills & Knowledge"},
-    {"module": "5_✨_Career_Paths.py", "title": "Visual Career Paths"},
-    {"module": "6_💡_Visual_Skills_Refresh.py", "title": "Visual Skills Refresh"},
-    {"module": "7_🎓_Credentials_Pathway.py", "title": "Credentials Pathway"},
-    {"module": "8_💼_Gain_Experience.py", "title": "Gain Experience"},
+    {"module": "0_Resume_Suggestions.py", "title": "Resume Suggestions"},
+    {"module": "1_Career_Explorations.py", "title": "Career Explorations"},
+    {"module": "2_Career_Paths.py", "title": "CPA vs Non-CPA"},
+    {"module": "5_Credentials_Pathway.py", "title": "Credentials Pathway"},
+    {"module": "6_Visual_Skills_Refresh.py", "title": "Refreshing Your Skills & Knowledge"},
+    {"module": "7_Gain_Experience.py", "title": "Gain Experience"},
 ]
 
 # Extract titles
@@ -42,8 +41,8 @@ selected_page = st.navigation(pages, position="sidebar", expanded=True)
 completed = sum(st.session_state[title] for title in page_titles)
 st.sidebar.title("Progress")
 st.sidebar.progress(completed / len(page_titles))
-for title in page_titles:
-    st.sidebar.checkbox(label=title, value=st.session_state[title], disabled=True)
+# for title in page_titles:
+#     st.sidebar.checkbox(label=title, value=st.session_state[title], disabled=True)
 
 # Determine index of the selected page
 current_idx = next(i for i, p in enumerate(pages) if p.title == selected_page.title)

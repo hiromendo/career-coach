@@ -9,7 +9,7 @@ cpa_image_url = "https://img.icons8.com/external-flaticons-lineal-color-flat-ico
 non_cpa_image_url = "https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-calculator-accounting-flaticons-flat-flat-icons.png"
 
 # --- Page Title and Introduction ---
-st.title("✨ Visual Career Path Evaluation: CPA vs. Non-CPA")
+st.title("✨ Career Path Evaluation: CPA vs. Non-CPA")
 st.markdown("Compare the two main accounting career paths at a glance and see which aligns with your goals.")
 st.caption("Use the interactive questions below the comparison to get personalized insights.")
 st.divider()
@@ -22,10 +22,10 @@ col1, col2 = st.columns(2, gap="large")
 with col1:
     st.subheader("📜 The CPA Path")
     # Conditionally display image if URL is valid
-    try:
-        st.image(cpa_image_url, width=64)
-    except Exception:
-        st.markdown("**(CPA Icon)**") # Fallback text
+    # try:
+    #     st.image(cpa_image_url, width=64)
+    # except Exception:
+    #     st.markdown("**(CPA Icon)**") # Fallback text
 
     st.markdown("**The Premier Accounting License**")
     st.markdown("---") # Separator line
@@ -58,10 +58,10 @@ with col1:
 with col2:
     st.subheader("💼 The Non-CPA Path")
      # Conditionally display image if URL is valid
-    try:
-        st.image(non_cpa_image_url, width=64)
-    except Exception:
-        st.markdown("**(Calculator Icon)**") # Fallback text
+    # try:
+    #     st.image(non_cpa_image_url, width=64)
+    # except Exception:
+    #     st.markdown("**(Calculator Icon)**") # Fallback text
 
     st.markdown("**Diverse & Essential Accounting Roles**")
     st.markdown("---") # Separator line
