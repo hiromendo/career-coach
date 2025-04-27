@@ -1,0 +1,6 @@
+extra_streamlit_components==0.1.80
+pandas==2.2.3
+streamlit==1.44.1
+streamlit_cookies_manager==0.2.0
+streamlit_d3graph==1.0.3
+streamlit_react_flow==0.0.3
