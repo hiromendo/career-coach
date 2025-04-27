@@ -45,8 +45,8 @@ st.caption("Select a topic from the sidebar to begin your journey!")
 
 # --- Sidebar Content (Example) ---
 # Add a header or some context to the sidebar itself
-st.sidebar.header("Guide Navigation")
-st.sidebar.markdown("Select a section below:")
-# In a real multi-page app, you'd have st.page_link() here.
-# For a single page, you might structure it differently or just leave this hint.
-st.sidebar.info("Tailored for Accounting & Digital Marketing professionals.")
+# st.sidebar.header("Guide Navigation")
+# st.sidebar.markdown("Select a section below:")
+# # In a real multi-page app, you'd have st.page_link() here.
+# # For a single page, you might structure it differently or just leave this hint.
+# st.sidebar.info("Tailored for Accounting & Digital Marketing professionals.")
