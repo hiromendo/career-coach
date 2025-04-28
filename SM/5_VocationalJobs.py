@@ -8,7 +8,7 @@ st.markdown("""
 **Profile & Goals:** You have hands-on experience (warehouse operations, R&D tech work, Salesforce admin) and are fluent in ASL. As a Deaf individual currently in a repetitive Amazon warehouse job, you’re seeking a more stimulating skilled trade job near Beaverton, Oregon.
 
 The ideal role:
-* Pays around **$50,000–$60,000+ annually**.
+* Pays around **\$50,000–\$60,000+ annually**.
 * Involves **manual or technical work** (like electrician or other trades).
 * Has **short training (3–6 months) or paid apprenticeships**.
 * Doesn’t require long commutes or extensive driving.
@@ -54,9 +54,9 @@ with tab1:
 
     st.subheader("Salary and Outlook")
     st.markdown("""
-    Electricians are well compensated due to their specialized skills and licensing. In the Portland/Beaverton area, journey-level electricians often earn **$40–$60 per hour** (union scale is around $54/hr in Portland), which translates to **$80k–$120k+ per year** when fully licensed. State data shows Oregon electricians’ median wage is about **$87,600 annually**.
+    Electricians are well compensated due to their specialized skills and licensing. In the Portland/Beaverton area, journey-level electricians often earn **\$40–\$60 per hour** (union scale is around \$54/hr in Portland), which translates to **\$80k–\$120k+ per year** when fully licensed. State data shows Oregon electricians’ median wage is about **\$87,600 annually**.
 
-    As a brand-new electrician (apprentice), you might start around 50% of the journeyman wage (roughly $20–$30/hr, i.e. **~$40k–$50k/year**), and receive raises every 6 months as you progress in training. Reaching the $60k mark typically happens by the later years of apprenticeship or once you become a licensed Journeyman Electrician.
+    As a brand-new electrician (apprentice), you might start around 50% of the journeyman wage (roughly \$20–\$30/hr, i.e. **~\$40k–\$50k/year**), and receive raises every 6 months as you progress in training. Reaching the $60k mark typically happens by the later years of apprenticeship or once you become a licensed Journeyman Electrician.
 
     The job outlook is excellent – employment of electricians is projected to grow ~11% from 2023 to 2033, and Oregon in particular has a thriving construction and high-tech industry driving demand. This means plenty of job openings and overtime opportunities. Electricians also enjoy career flexibility: you can work for electrical contractors on construction projects, for facilities (maintaining one site like Nike’s campus or Intel’s factory), or even go into business for yourself after licensing.
     """)
@@ -127,7 +127,7 @@ with tab2:
 
     st.subheader("Salary and Demand")
     st.markdown("""
-    Plumbers are among the best-paid trades. In Oregon, the median annual wage is about **$87,900**. Union scale in Portland is often **$40+/hour**. Apprentices start around 50% (roughly **$20–$25/hour, ~$45k/year**) and increase. Reaching $60k typically happens upon journeyman status or late apprenticeship with overtime.
+    Plumbers are among the best-paid trades. In Oregon, the median annual wage is about **\$87,900**. Union scale in Portland is often **\$40+/hour**. Apprentices start around 50% (roughly **$\20–\$25/hour, ~$45k/year**) and increase. Reaching \$60k typically happens upon journeyman status or late apprenticeship with overtime.
 
     Demand is strong: Oregon employs 5,000+ plumbers/pipefitters with consistent openings. Occupation projected to grow ~6% nationally, plus retirements create openings. Portland metro construction (housing, commercial, Intel expansion) fuels demand. Maintenance plumbing is always needed. High job security. Overtime potential, especially for emergency calls (dispatch can use text/vibrating alerts).
     """)
@@ -203,7 +203,7 @@ with tab3:
 
     st.subheader("Salary and Job Outlook")
     st.markdown("""
-    Solid income in Oregon. Median wage around **$30.95/hour (~$64,000/year)**. Average annual wage about **$66,600**. Entry-level near **$45k-$50k**, crossing $60k common with experience/certs. Overtime potential during peak seasons. Union roles (Local 290) can pay higher ($40+/hr).
+    Solid income in Oregon. Median wage around **\$30.95/hour (~\$64,000/year)**. Average annual wage about **\$66,600**. Entry-level near **\$45k-\$50k**, crossing $60k common with experience/certs. Overtime potential during peak seasons. Union roles (Local 290) can pay higher (\$40+/hr).
 
     Very bright job outlook: Growing field due to energy efficiency focus and construction. Expected ~6% national growth, **11% Oregon growth by 2030 (~360 jobs/year)**. Steady need in Beaverton/Portland due to climate. Retirements create openings. Good job security. Somewhat seasonal workload, but year-round employment typical.
     """)
@@ -277,7 +277,7 @@ with tab4:
 
     st.subheader("Salary and Outlook")
     st.markdown("""
-    High-skill trade with good compensation. Oregon average: **~$59,700/year**. Entry-level ~**$18–$20/hour (~$38k–$42k/year)**. Experienced CNC machinists reach **$25–$30+/hour ($50k–$60k+/year)**. Specialized industries (aerospace - Boeing Portland journey level potentially $50+/hr) pay more. Median statewide wage **~$61,200/year**.
+    High-skill trade with good compensation. Oregon average: **~\$59,700/year**. Entry-level ~**\$18–\$20/hour (~\$38k–\$42k/year)**. Experienced CNC machinists reach **\$25–\$30+/hour (\$50k–\$60k+/year)**. Specialized industries (aerospace - Boeing Portland journey level potentially \$50+/hr) pay more. Median statewide wage \$61,200/year**.
 
     Stable outlook with some growth. Automation increases productivity but skilled operators/programmers still needed. Retirements create demand. Precision manufacturing remains crucial. Career has longevity and upward mobility (CNC programmer, supervisor, engineer). Secure path with opportunities in aerospace, medical, high-tech, general manufacturing.
     """)
@@ -358,7 +358,7 @@ with tab5:
 
     st.subheader("Salary")
     st.markdown("""
-    Wide range based on industry/skill. Portland average **~$53,700/year ($25.80/hr)**. Majority earn **$42,000 - $65,000 annually**. Entry-level general maintenance ~**$18–$22/hr (~$40k/yr)**. Skilled techs or those with licenses (LME, boiler operator) earn **$60k+**. Government/union positions often have good pay/benefits. Your $50-60k target is achievable with experience/skills. Stable field - needed everywhere.
+    Wide range based on industry/skill. Portland average **~\$53,700/year (\$25.80/hr)**. Majority earn **\$42,000 - \$65,000 annually**. Entry-level general maintenance ~**\$18–\$22/hr (~\$40k/yr)**. Skilled techs or those with licenses (LME, boiler operator) earn \$60k+. Government/union positions often have good pay/benefits. Your \$50-60k target is achievable with experience/skills. Stable field - needed everywhere.
     """)
 
     st.subheader("Training & Qualifications")
