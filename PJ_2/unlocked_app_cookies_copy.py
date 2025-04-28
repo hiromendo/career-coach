@@ -1,3 +1,5 @@
+
+
 import streamlit as st
 import extra_streamlit_components as stx # Ensure this is installed: pip install extra-streamlit-components
 import datetime
@@ -23,7 +25,7 @@ cookie_manager = stx.CookieManager()
 # Function to load progress, handling potential errors or missing cookie
 def load_progress_from_cookie(cookie_manager_instance, page_titles_list):
     # Pass the instantiated manager
-    progress_json = cookie_manager_instance.get(cookie="page_progress")
+    progress_json = cookie_manager.get("page_progress")
     initial_progress = {}
     if progress_json:
         try:
@@ -38,7 +40,10 @@ def load_progress_from_cookie(cookie_manager_instance, page_titles_list):
 
     # Ensure all current page titles exist in the loaded progress, default to False
     final_progress = {title: initial_progress.get(title, False) for title in page_titles_list}
+    # Immediately after loading:
+    st.write("Loaded cookie value:", progress_json)
     return final_progress
+
 
 # --- Page Definitions ---
 page_configs = [
@@ -48,13 +53,7 @@ page_configs = [
     {"module": "5_Credentials_Pathway.py", "title": "Credentials Pathway"},
     {"module": "6_Visual_Skills_Refresh.py", "title": "Refreshing Your Skills & Knowledge"},
     {"module": "7_Gain_Experience.py", "title": "Gain Experience"},
-    {"module": "8_Non_CPA.py", "title": "Navigating Non-CPA Accounting Roles"},
-    {"module": "9_Accounting_Resources.py", "title": "Accounting Resources"},
-    {"module": "10_Job_Search.py", "title": "Job Search Strategies"},
-    {"module": "11_Networking.py", "title": "Networking Strategies"},
-    {"module": "12_Local_Meetups.py", "title": "Local Meetups & Events"},
 ]
-
 
 # Extract titles
 page_titles = [cfg["title"] for cfg in page_configs]
@@ -112,8 +111,15 @@ if not st.session_state['progress_status'].get(selected_original_title, False):
         # Set a long expiry date (e.g., 1 year)
         expires_at = datetime.datetime.now() + datetime.timedelta(days=365)
         # Use the cookie_manager instance directly
-        cookie_manager.set("page_progress", progress_to_save, expires_at=expires_at)
-
+        cookie_manager.set(
+            cookie="page_progress",        # matches “cookie: str”
+            val=progress_to_save,          # matches “val: …”
+            path="/",                      # default is fine, but you can be explicit
+            expires_at=expires_at,
+            secure=False,                  # allow HTTP
+            same_site="lax",               # lowercase, one of "lax" or "strict"
+            )
+        st.write("Wrote cookie:", progress_to_save)
         # 3. Rerun to update UI (sidebar label, progress bar)
         st.rerun()
 
