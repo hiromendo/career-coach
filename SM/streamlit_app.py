@@ -1,11 +1,46 @@
 import streamlit as st
-import extra_streamlit_components as stx
+import extra_streamlit_components as stx # Ensure this is installed: pip install extra-streamlit-components
+import datetime
+import json # To handle serialization of progress data
 
-# --- Page Config & Cookie Manager Init ---
-st.set_page_config(layout="wide", page_title="Re‑Entering Accounting Guide")
+# --- Entrypoint for Multipage App using st.navigation ---
+# Global page configuration
+st.set_page_config(layout="wide", page_title="Career Coach")
+
+# --- Cookie Manager Setup ---
+# Instantiate CookieManager directly, NOT inside a cached function
+# Remove this:
+# @st.cache_resource
+# def get_cookie_manager():
+#     return stx.CookieManager()
+# cookie_manager = get_cookie_manager()
+
+# Add this:
 cookie_manager = stx.CookieManager()
 
-# --- Define your pages ---
+
+# --- Load Progress from Cookie ---
+# Function to load progress, handling potential errors or missing cookie
+def load_progress_from_cookie(cookie_manager_instance, page_titles_list):
+    # Pass the instantiated manager
+    progress_json = cookie_manager_instance.get(cookie="page_progress")
+    initial_progress = {}
+    if progress_json:
+        try:
+            initial_progress = json.loads(progress_json)
+            # Ensure it's a dictionary (basic validation)
+            if not isinstance(initial_progress, dict):
+                st.warning("Invalid progress data found in cookie. Resetting progress.")
+                initial_progress = {}
+        except json.JSONDecodeError:
+            st.warning("Could not decode progress data from cookie. Resetting progress.")
+            initial_progress = {} # Reset if JSON is corrupted
+
+    # Ensure all current page titles exist in the loaded progress, default to False
+    final_progress = {title: initial_progress.get(title, False) for title in page_titles_list}
+    return final_progress
+
+# --- Page Definitions ---
 page_configs = [
     {"module": "0_Home.py",               "title": "Home"},
     {"module": "0_Job_Market_Analysis.py", "title": "Job Market Analysis"},
@@ -15,133 +50,75 @@ page_configs = [
     {"module": "4_Conclusion.py",         "title": "Conclusion"},
     {"module": "5_VocationalJobs.py",     "title": "Other Jobs"},
 ]
+
+
+# Extract titles
 page_titles = [cfg["title"] for cfg in page_configs]
 
-# --- Hydrate session_state from cookies or initialize flags ---
-for title in page_titles:
-    if cookie_manager.get(title) == "true":
-        st.session_state[title] = True
-    elif title not in st.session_state:
-        st.session_state[title] = False
+# --- Initialize/Load progress into Session State ---
+# Use session state to hold the progress *for the current run*, loading from cookie initially
+if 'progress_status' not in st.session_state:
+    # Pass the created cookie_manager instance here
+    st.session_state['progress_status'] = load_progress_from_cookie(cookie_manager, page_titles)
 
-# --- Determine current navigation index ---
-if "nav_index" not in st.session_state:
-    st.session_state.nav_index = next((i for i, t in enumerate(page_titles) if not st.session_state[t]), 0)
-
-# --- Build Page objects with dynamic labels and default selection marker ---
+# --- Build Page objects with dynamic labels (completed or not) ---
 pages = []
-for idx, cfg in enumerate(page_configs):
+for cfg in page_configs:
     title = cfg["title"]
-    # locked if previous not completed
-    if idx > 0 and not st.session_state[page_titles[idx-1]]:
-        label = f"🔒 {title}"
-    else:
-        label = f"✅ {title}" if st.session_state[title] else title
-    # mark default page so navigation highlights correctly
-    default = (idx == st.session_state.nav_index)
-    pages.append(st.Page(cfg["module"], title=label, default=default))
+    module = cfg["module"]
+    # Read completion status from session state (which was loaded from cookie)
+    is_complete = st.session_state['progress_status'].get(title, False)
+    label = f"✅ {title}" if is_complete else title
+    pages.append(st.Page(module, title=label))
 
 # --- Render navigation menu ---
-selected_page = st.navigation(pages, position="sidebar")
-
-# --- Sync nav_index if user manually selected a page ---
-current_idx = next(i for i, p in enumerate(pages) if p.title == selected_page.title)
-if st.session_state.nav_index != current_idx:
-    st.session_state.nav_index = current_idx
+selected_page_object = st.navigation(pages, position="sidebar", expanded=True)
 
 # --- Sidebar progress tracker ---
-completed = sum(st.session_state[t] for t in page_titles)
+# Calculate progress based on session state
+completed_count = sum(st.session_state['progress_status'].values())
 st.sidebar.title("Progress")
-st.sidebar.progress(completed / len(page_titles))
+st.sidebar.progress(completed_count / len(page_titles))
+# Optional: display checkboxes showing completion status (disabled)
+# st.sidebar.write("Completion Status:")
+# for title in page_titles:
+#     st.sidebar.checkbox(label=title, value=st.session_state['progress_status'].get(title, False), disabled=True)
 
-# --- Lock check before running page ---
-if current_idx > 0 and not st.session_state[page_titles[current_idx-1]]:
-    st.error("🔒 This page is locked. Please complete the previous step to unlock.")
+
+# --- Get the original title using the index ---
+try:
+    selected_idx = pages.index(selected_page_object)
+    selected_original_title = page_configs[selected_idx]["title"]
+except ValueError:
+    st.error("Could not identify the selected page. Please reload.")
     st.stop()
 
 # --- Run the selected page script ---
-selected_page.run()
+selected_page_object.run()
 
-# --- Mark-as-complete logic with cookie persistence and auto-advance ---
-flag = page_titles[current_idx]
-if not st.session_state[flag]:
+# --- Mark-as-complete button logic ---
+# Check completion status using session state
+if not st.session_state['progress_status'].get(selected_original_title, False):
     if st.button("Mark this page as complete"):
-        # 1) set in-memory
-        st.session_state[flag] = True
-        # 2) persist cookie
-        cookie_manager.set(
-            cookie=flag,
-            val="true",
-            max_age=30 * 24 * 60 * 60,
-        )
-        # 3) advance nav_index
-        next_idx = current_idx + 1 if current_idx + 1 < len(pages) else current_idx
-        st.session_state.nav_index = next_idx
-        # 4) rerun to reflect changes
+        # 1. Update session state
+        st.session_state['progress_status'][selected_original_title] = True
+
+        # 2. Prepare data and save to cookie
+        progress_to_save = json.dumps(st.session_state['progress_status'])
+        # Set a long expiry date (e.g., 1 year)
+        expires_at = datetime.datetime.now() + datetime.timedelta(days=365)
+        # Use the cookie_manager instance directly
+        cookie_manager.set("page_progress", progress_to_save, expires_at=expires_at)
+
+        # 3. Rerun to update UI (sidebar label, progress bar)
         st.rerun()
 
-
-# import streamlit as st
-# import extra_streamlit_components as stx
-
-# # --- Page Config & Cookie Manager Init ---
-# st.set_page_config(layout="wide", page_title="Re‑Entering Accounting Guide")
-# # on top of your script
-# cookie_manager = stx.CookieManager()
-
-
-# # --- Define your pages ---
-# page_configs = [
-#     {"module": "0_Home.py",              "title": "Home"},
-#     {"module": "0_Job_Market_Analysis.py","title": "Job Market Analysis"},
-#     {"module": "1_Strategies.py",        "title": "Strategies"},
-#     {"module": "2_Recommendations.py",   "title": "Recommendations"},
-#     {"module": "3_ActionPlan.py",        "title": "Action Plan"},
-#     {"module": "4_Conclusion.py",        "title": "Conclusion"},
-#     {"module": "5_VocationalJobs.py",    "title": "Other Jobs"},
-# ]
-
-# # Extract titles
-# page_titles = [cfg["title"] for cfg in page_configs]
-
-# # Initialize completion flags
-# for title in page_titles:
-#     if title not in st.session_state:
-#         st.session_state[title] = False
-
-# # Build Page objects with dynamic labels (locked/unlocked & completed)
-# pages = []
-# for idx, cfg in enumerate(page_configs):
-#     title = cfg["title"]
-#     module = cfg["module"]
-#     # Locked if previous not completed
-#     if idx > 0 and not st.session_state[page_titles[idx-1]]:
-#         label = f"🔒 {title}"
-#     else:
-#         label = f"✅ {title}" if st.session_state[title] else title
-#     pages.append(st.Page(module, title=label))
-
-# # Render navigation menu
-# selected_page = st.navigation(pages, position="sidebar", expanded=True)
-
-# # Sidebar progress tracker
-# completed = sum(st.session_state[title] for title in page_titles)
-# st.sidebar.title("Progress")
-# st.sidebar.progress(completed / len(page_titles))
-# # for title in page_titles:
-# #     st.sidebar.checkbox(label=title, value=st.session_state[title], disabled=True)
-
-# # Determine index of the selected page
-# current_idx = next(i for i, p in enumerate(pages) if p.title == selected_page.title)
-
-# # Lock check
-# if current_idx > 0 and not st.session_state[page_titles[current_idx-1]]:
-#     st.error("🔒 This page is locked. Please complete the previous step to unlock.")
-# else:
-#     # Run the selected page script
-#     selected_page.run()
-#     # Mark-as-complete button
-#     if not st.session_state[page_titles[current_idx]]:
-#         if st.button("Mark this page as complete"):
-#             st.session_state[page_titles[current_idx]] = True
-#             st.rerun()
+# --- Optional: Add a way to clear progress ---
+st.sidebar.divider()
+if st.sidebar.button("Clear All Progress"):
+    # Clear session state
+    st.session_state['progress_status'] = {title: False for title in page_titles}
+    # Delete the cookie
+    cookie_manager.delete("page_progress")
+    # Rerun to reflect changes
+    st.rerun()
