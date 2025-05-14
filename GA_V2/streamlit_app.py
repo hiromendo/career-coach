@@ -42,16 +42,13 @@ def load_progress_from_cookie(cookie_manager_instance, page_titles_list):
 
 # --- Page Definitions ---
 page_configs = [
-    {"module": "0_Intro.py",           "title": "Introduction"},
-    {"module": "0_Analysis.py",        "title": "Profile Analysis"},
-    {"module": "1.py",         "title": "Target Role & Market Analysis"},
-    {"module": "2.py",    "title": "Strategic Positioning"},
-    {"module": "3.py",    "title": "Jobs For You"},
-    {"module": "4.py",         "title": "Actionable Job Search Plan"},
-    {"module": "5.py",     "title": "Conclusion"},
-    {"module": "6.py",     "title": "Actionable Task"},
-    {"module": "7.py",     "title": "Actionable Task 2"},
-    {"module": "8.py",     "title": "Actionable Task 3"},
+    {"module": "0_Analysis.py",        "title": "Intro"},
+    {"module": "1.py",         "title": "Key Focus Areas at Origis Energy "},
+    {"module": "2.py",    "title": "Actionable Projects "},
+    {"module": "3.py",    "title": "Actionable Task"},
+    {"module": "4.py",         "title": "Actionable Task 2"},
+    {"module": "5.py",     "title": "Actionable Task 3"},
+    {"module": "6.py",     "title": "Actionable Task 4"},
 ]
 
 
