@@ -44,7 +44,10 @@ def load_progress_from_cookie(cookie_manager_instance, page_titles_list):
 page_configs = [
     {"module": "0_Analysis.py",        "title": "Introduction to ATs and PTs"},
     {"module": "1.py",         "title": "Becoming a Sports Therapist"},
+    {"module": "3.py",    "title": "Task Timeline"},
     {"module": "2.py",    "title": "Week 1 "},
+    {"module": "4.py",    "title": "Week 2"},
+
 ]
 
 
