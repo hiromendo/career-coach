@@ -1,7 +1,8 @@
 import streamlit as st
 
 # --- Page Title ---
-st.title("🚀 Phase 1: Foundations & LLM Exploration (Weeks 1-2)")
+st.title("🚀 Phase 1: Foundations & LLM Exploration")
+
 st.markdown("---")
 
 # --- Goal ---
